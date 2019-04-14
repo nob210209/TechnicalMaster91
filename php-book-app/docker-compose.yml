@@ -13,3 +13,15 @@ services:
     command: bash -c "sh docker-init-setup.sh && apache2-foreground"
     ports:
     - "5000:80"
+  db:
+    container_name: php-book-app-db
+    build:
+      context: .
+      dockerfile: ./Docker/mysql/Dockerfile
+    volumes:
+    - ./Docker/mysql/sqls:/docker-entrypoint-initdb.d
+    - ./Docker/mysql/data:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=secret
+    ports:
+    - "13306:3306"

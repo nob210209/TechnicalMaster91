@@ -1,3 +1,4 @@
 /.idea
 .DS_Store
-./Docker/mysql/data/
+/Docker/mysql/data/*
+!/Docker/mysql/data/.gitkeep

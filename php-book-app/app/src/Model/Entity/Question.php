@@ -16,6 +16,6 @@ class Question extends Entity
         'user_id'  => true,
         'body'     => true,
         'created'  => true,
-        'modified' => true,
+        'modified' => true
     ];
 }

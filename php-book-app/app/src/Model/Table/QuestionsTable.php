@@ -36,7 +36,7 @@ class QuestionsTable extends Table
      */
     public function findQuestionsWithAnsweredCount()
     {
-        $query = $this->Questions->find();
+        $query = $this->find();
         $query
             ->select(['answered_count' => $query->func()->count('Answers.id')])
             ->leftJoinWith('Answers')

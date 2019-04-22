@@ -51,4 +51,21 @@ class AnswersTable extends Table
 
         return $validator;
     }
+
+    /**
+     * バリデーションルールの定義
+     *
+     * @oaram \Cake\ORM\RulesChecker $rules ルールチェッカーのオブジェクト
+     * @return \Cake\ORM\RulesChecker ルールチェッカーのオブジェクト
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existIn(
+            ['question_id'],
+            'Questions',
+            '質問が質問が既に削除されているため回答することができません。'
+        ));
+
+        return $rules;
+    }
 }

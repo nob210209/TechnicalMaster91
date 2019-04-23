@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use Cake\Event\Event;
 
+/**
+ * Answers Controller
+ */
 class AnswersController extends AppController
 {
     const ANSWER_UPPER_LIMIT = 100;
@@ -25,7 +28,6 @@ class AnswersController extends AppController
     public function add()
     {
         $answer = $this->Answers->newEntity($this->request->getData());
-
         $count = $this->Answers
             ->find()
             ->where(['question_id' => $answer->question_id])
@@ -37,7 +39,7 @@ class AnswersController extends AppController
             return $this->redirect(['controller' => 'Questions', 'action' => 'view', $answer->question_id]);
         }
 
-        $answer->user_id = 1; //todoユーザー管理機能実装後に修正する
+        $answer->user_id = $this->Auth->user('id');
         if ($this->Answers->save($answer)) {
             $this->Flash->success('回答を投稿しました');
         } else {
@@ -50,14 +52,17 @@ class AnswersController extends AppController
     /**
      * 回答削除処理
      *
-     * @param int $id 質問ID
+     * @param int $id 回答ID
      * @return \Cake\Http\Response|null 回答削除後に質問詳細画面へ遷移する
      */
     public function delete(int $id)
     {
         $answer = $this->Answers->get($id);
         $questionId = $answer->question_id;
-        //todo 回答を削除できるのは回答投稿者のみとする
+        if ($answer->user_id !== $this->Auth->user('id')) {
+            $this->Flash->error('他のユーザーの回答を削除することはできません');
+            return $this->redirect(['controller' => 'Questions', 'action' => 'view', $questionId]);
+        }
 
         if ($this->Answers->delete($answer)) {
             $this->Flash->success('回答を削除しました');
@@ -67,5 +72,4 @@ class AnswersController extends AppController
 
         return $this->redirect(['controller' => 'Questions', 'action' => 'view', $questionId]);
     }
-
 }

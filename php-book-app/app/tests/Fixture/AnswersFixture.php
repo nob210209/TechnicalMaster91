@@ -2,19 +2,18 @@
 /**
  * Created by PhpStorm.
  * User: wtanabe-ryota
- * Date: 2019/05/19
- * Time: 21:13
+ * Date: 2019/05/21
+ * Time: 0:15
  */
-
 namespace App\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * QuestionsFixture
+ * AnswersFixture
  *
  */
-class QuestionsFixture extends TestFixture
+class AnswersFixture extends TestFixture
 {
     /**
      * テーブルのフィールド情報
@@ -31,6 +30,16 @@ class QuestionsFixture extends TestFixture
             'default' => null,
             'comment' => '',
             'autoIncrement' => true,
+            'precision' => null
+        ],
+        'question_id' => [
+            'type' => 'integer',
+            'length' => 10,
+            'unsigned' => true,
+            'null' => false,
+            'default' => null,
+            'comment' => '',
+            'autoIncrement' => null,
             'precision' => null
         ],
         'user_id' => [
@@ -91,17 +100,19 @@ class QuestionsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
+                'question_id' => 1,
                 'user_id' => 1,
-                'body' => '好きなPHPのフレームワークは何ですか？',
-                'created' => '2018-12-01 13:00:00',
-                'modified' => '2018-12-01 13:00:00'
+                'body' => 'ちなみに僕はCakePHPが好きです！',
+                'created' => '2018-12-01 13:30:00',
+                'modified' => '2018-12-01 13:30:00'
             ],
             [
                 'id' => 2,
+                'question_id' => 1,
                 'user_id' => 2,
-                'body' => '好きなPHPの関数は何ですか？',
-                'created' => '2018-12-02 14:00:00',
-                'modified' => '2018-12-02 14:00:00'
+                'body' => '私はLaravelをよく使います。',
+                'created' => '2018-12-02 14:30:00',
+                'modified' => '2018-12-02 14:30:00'
             ]
         ];
         parent::init();
